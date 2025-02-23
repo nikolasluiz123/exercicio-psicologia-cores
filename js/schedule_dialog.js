@@ -110,12 +110,17 @@ function addTableData() {
     const tableBody = document.querySelector("table tbody");
     const newRow = document.createElement("tr");
 
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-btn");
+    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
     newRow.innerHTML = `
         <td>${patientName}</td>
         <td>${doctorName}</td>
         <td>${planType}</td>
         <td>${date}</td>
         <td>${time}</td>
+        <td>${deleteButton.outerHTML}</td>
     `;
 
     tableBody.appendChild(newRow);
@@ -128,12 +133,17 @@ function updateTableData(row) {
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-btn");
+    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
     row.innerHTML = `
         <td>${patientName}</td>
         <td>${doctorName}</td>
         <td>${planType}</td>
         <td>${date}</td>
         <td>${time}</td>
+        <td>${deleteButton.outerHTML}</td>
     `;
 }
 
@@ -164,4 +174,15 @@ function hideProcessingDialog() {
     timeRemainingElement.textContent = "Tempo restante: 3s";
 
     document.getElementById("processing-dialog").style.display = "none";
+}
+
+function addDeleteEventListeners() {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const row = this.closest("tr");
+            if (row) {
+                row.remove();
+            }
+        });
+    });
 }

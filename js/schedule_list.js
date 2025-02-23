@@ -46,4 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    document.querySelector("table").addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-btn")) {
+            const row = event.target.closest("tr");
+            if (row) {
+                row.remove();
+            }
+        }
+    });
 });
