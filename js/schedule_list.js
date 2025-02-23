@@ -1,8 +1,9 @@
+let editingRow = null;
+
 document.addEventListener("DOMContentLoaded", function() {
     const dialog = document.getElementById("dialog-container");
     const openButton = document.getElementById("new-schedule");
     const closeButton = document.getElementById("close-dialog");
-    let editingRow = null;
 
     openButton.addEventListener("click", function() {
         dialog.style.display = "flex";

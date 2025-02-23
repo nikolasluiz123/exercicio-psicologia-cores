@@ -45,7 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (timeLeft <= 0) {
                 clearInterval(interval);
-                addTableData();
+
+                if (editingRow) {
+                    updateTableData(editingRow);
+                } else {
+                    addTableData();
+                }
+
                 clearScheduleDialogFields();
                 hideProcessingDialog();
                 hideScheduleDialog();
@@ -73,6 +79,22 @@ function addTableData() {
     `;
 
     tableBody.appendChild(newRow);
+}
+
+function updateTableData(row) {
+    const patientName = document.getElementById("patient-name").value;
+    const doctorName = document.getElementById("doctor-name").value;
+    const planType = document.querySelector('input[name="plan"]:checked') ? document.querySelector('input[name="plan"]:checked').value : '';
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    row.innerHTML = `
+        <td>${patientName}</td>
+        <td>${doctorName}</td>
+        <td>${planType}</td>
+        <td>${date}</td>
+        <td>${time}</td>
+    `;
 }
 
 function clearScheduleDialogFields() {
