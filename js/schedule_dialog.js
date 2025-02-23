@@ -26,39 +26,79 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("save-appointment").addEventListener("click", function(event) {
         event.preventDefault();
 
-        const form = document.querySelector("form");
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
+        const isValid = checkDefaultFormValidations() && checkCustomValidations();
 
-        showProcessingDialog();
+        if (isValid) {
+            showProcessingDialog();
 
-        let timeLeft = 3;
-        const progressBar = document.getElementById("progress-bar");
-        const timeRemainingElement = document.getElementById("time-remaining");
+            let timeLeft = 3;
+            const progressBar = document.getElementById("progress-bar");
+            const timeRemainingElement = document.getElementById("time-remaining");
 
-        const interval = setInterval(function() {
-            timeLeft--;
-            progressBar.style.width = ((10 - timeLeft) * 10) + "%";
-            timeRemainingElement.textContent = `Tempo restante: ${timeLeft}s`;
+            const interval = setInterval(function() {
+                timeLeft--;
+                progressBar.style.width = ((10 - timeLeft) * 10) + "%";
+                timeRemainingElement.textContent = `Tempo restante: ${timeLeft}s`;
 
-            if (timeLeft <= 0) {
-                clearInterval(interval);
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
 
-                if (editingRow) {
-                    updateTableData(editingRow);
-                } else {
-                    addTableData();
+                    if (editingRow) {
+                        updateTableData(editingRow);
+                    } else {
+                        addTableData();
+                    }
+
+                    clearScheduleDialogFields();
+                    hideProcessingDialog();
+                    hideScheduleDialog();
                 }
-
-                clearScheduleDialogFields();
-                hideProcessingDialog();
-                hideScheduleDialog();
-            }
-        }, 1000);
+            }, 1000);
+        }
     });
 });
+
+function checkDefaultFormValidations() {
+    const form = document.querySelector("form");
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+    }
+
+    return true
+}
+
+function checkCustomValidations() {
+    const dateValue = document.getElementById("date").value;
+    const timeValue = document.getElementById("time").value;
+
+    const dateParts = dateValue.split('/');
+    const day = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1;
+    const year = parseInt(dateParts[2]);
+
+    const appointmentDate = new Date(year, month, day);
+    const currentDate = new Date();
+    const invalidDateValues = appointmentDate.getDate() !== day || appointmentDate.getMonth() !== month ||  appointmentDate.getFullYear() !== year;
+
+    if (invalidDateValues || appointmentDate < currentDate) {
+        alert("A data do agendamento é inválida! Por favor, verifique.");
+        return false;
+    }
+
+    const timeParts = timeValue.split(':');
+    const appointmentTime = new Date(currentDate.toDateString() + ' ' + timeValue);
+    const currentTime = new Date();
+    const invalidHourValues = timeParts.length !== 2 || timeParts[0] < 0 || timeParts[0] > 23 || timeParts[1] < 0 || timeParts[1] > 59;
+
+    if (invalidHourValues || (dateValue === currentDate.toLocaleDateString('pt-BR') && appointmentTime < currentTime)) {
+        alert("O horário do agendamento é inválido! Por favor, verifique.");
+        return false;
+    }
+
+    return true;
+}
 
 function addTableData() {
     const patientName = document.getElementById("patient-name").value;

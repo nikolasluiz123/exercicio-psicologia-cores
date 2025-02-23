@@ -14,12 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
         dialog.style.display = "none";
     });
 
-    dialog.addEventListener("click", function(event) {
-        if (event.target === dialog) {
-            dialog.style.display = "none";
-        }
-    });
-
     document.querySelector("table tbody").addEventListener("click", function(event) {
         if (event.target.tagName === "TD") {
             const row = event.target.closest("tr");
