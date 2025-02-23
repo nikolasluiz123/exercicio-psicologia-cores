@@ -1,0 +1,114 @@
+.dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-content {
+    background-color: white;
+    padding: 20px;
+    width: 60vw;
+    max-height: 60vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+
+}
+
+h3.dialog-title {
+    text-align: center;
+    margin-bottom: 24px;
+    margin-top: 0px;
+    font-weight: 500;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.labeled-radio {
+    display: ruby;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#save-appointment {
+    background-color: #004A9A;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#save-appointment:hover {
+    background-color: #003580;
+}
+
+#close-dialog {
+    background-color: white;
+    color: #004A9A;
+    border: 1px solid #004A9A;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#close-dialog:hover {
+    background-color: #004A9A;
+    color: white;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.row .input-group {
+    flex: 1;
+    min-width: 250px;
+}

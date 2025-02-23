@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultas Agendadas</title>
+
     <link rel="stylesheet" href="../css/schedule_list.css">
+    <link rel="stylesheet" href="../css/schedule_dialog.css">
 </head>
 <body>
 
@@ -46,6 +48,59 @@
         </tbody>
     </table>
 </main>
+
+<div id="dialog-container" class="dialog">
+    <div class="dialog-content">
+        <h3 class="dialog-title">Novo Agendamento</h3>
+
+        <form>
+            <div class="row">
+                <div class="input-group">
+                    <label for="patient-name">Nome do Paciente</label>
+                    <input type="text" id="patient-name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="doctor-name">Nome do Médico</label>
+                    <input type="text" id="doctor-name" required>
+                </div>
+            </div>
+
+            <label>Tipo de Plano</label>
+            <div class="radio-group">
+                <div class="labeled-radio">
+                    <input type="radio" id="particular" name="plan" value="Particular" required>
+                    <label for="particular">Particular</label>
+                </div>
+
+                <div class="labeled-radio">
+                    <input type="radio" id="convenio" name="plan" value="Convênio" required>
+                    <label for="convenio">Convênio</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="date">Data</label>
+                    <input type="text" id="date" placeholder="dd/MM/yyyy" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="time">Horário</label>
+                    <input type="text" id="time" placeholder="hh:mm" required>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" id="close-dialog">Fechar</button>
+                <button type="submit" id="save-appointment">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../js/schedule_list.js"></script>
+<script src="../js/schedule_dialog.js"></script>
 
 </body>
 </html>
