@@ -97,7 +97,9 @@ function showProcessingDialog() {
 
 function hideProcessingDialog() {
     const progressBar = document.getElementById("progress-bar");
+    const timeRemainingElement = document.getElementById("time-remaining");
     progressBar.style.width = "0%";
+    timeRemainingElement.textContent = "Tempo restante: 3s";
 
     document.getElementById("processing-dialog").style.display = "none";
 }
