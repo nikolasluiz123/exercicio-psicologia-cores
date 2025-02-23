@@ -19,6 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
         event.target.value = value;
     });
 
+    document.getElementById("close-dialog").addEventListener("click", function() {
+        clearScheduleDialogFields();
+    });
+
     document.getElementById("save-appointment").addEventListener("click", function(event) {
         event.preventDefault();
 
