@@ -30,4 +30,20 @@ document.addEventListener("DOMContentLoaded", function() {
             dialog.style.display = "flex";
         }
     });
+
+    document.getElementById('search').addEventListener('input', function() {
+        var query = this.value.toLowerCase();
+        var rows = document.querySelectorAll('table tbody tr');
+
+        rows.forEach(function(row) {
+            var patientName = row.cells[0].textContent.toLowerCase();
+            var doctorName = row.cells[1].textContent.toLowerCase();
+
+            if (patientName.includes(query) || doctorName.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
 });
