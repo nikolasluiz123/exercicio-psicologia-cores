@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../css/schedule_list.css">
     <link rel="stylesheet" href="../css/schedule_dialog.css">
+    <link rel="stylesheet" href="../css/processing_dialog.css">
 </head>
 <body>
 
@@ -96,6 +97,16 @@
                 <button type="submit" id="save-appointment">Salvar</button>
             </div>
         </form>
+    </div>
+</div>
+
+<div id="processing-dialog" class="dialog">
+    <div class="dialog-content">
+        <h3 class="dialog-title">Processando...</h3>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="time-remaining">Tempo restante: 3s</div>
     </div>
 </div>
 

@@ -22,31 +22,78 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("save-appointment").addEventListener("click", function(event) {
         event.preventDefault();
 
-        const patientName = document.getElementById("patient-name").value;
-        const doctorName = document.getElementById("doctor-name").value;
-        const planType = document.querySelector('input[name="plan"]:checked') ? document.querySelector('input[name="plan"]:checked').value : '';
-        const date = document.getElementById("date").value;
-        const time = document.getElementById("time").value;
+        const form = document.querySelector("form");
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
-        const tableBody = document.querySelector("table tbody");
-        const newRow = document.createElement("tr");
+        showProcessingDialog();
 
-        newRow.innerHTML = `
-            <td>${patientName}</td>
-            <td>${doctorName}</td>
-            <td>${planType}</td>
-            <td>${date}</td>
-            <td>${time}</td>
-        `;
+        let timeLeft = 3;
+        const progressBar = document.getElementById("progress-bar");
+        const timeRemainingElement = document.getElementById("time-remaining");
 
-        tableBody.appendChild(newRow);
+        const interval = setInterval(function() {
+            timeLeft--;
+            progressBar.style.width = ((10 - timeLeft) * 10) + "%";
+            timeRemainingElement.textContent = `Tempo restante: ${timeLeft}s`;
 
-        document.getElementById("dialog-container").style.display = "none";
-
-        document.getElementById("patient-name").value = '';
-        document.getElementById("doctor-name").value = '';
-        document.getElementById("date").value = '';
-        document.getElementById("time").value = '';
-        document.querySelector('input[name="plan"]:checked').checked = false;
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                addTableData();
+                clearScheduleDialogFields();
+                hideProcessingDialog();
+                hideScheduleDialog();
+            }
+        }, 1000);
     });
 });
+
+function addTableData() {
+    const patientName = document.getElementById("patient-name").value;
+    const doctorName = document.getElementById("doctor-name").value;
+    const planType = document.querySelector('input[name="plan"]:checked') ? document.querySelector('input[name="plan"]:checked').value : '';
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    const tableBody = document.querySelector("table tbody");
+    const newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td>${patientName}</td>
+        <td>${doctorName}</td>
+        <td>${planType}</td>
+        <td>${date}</td>
+        <td>${time}</td>
+    `;
+
+    tableBody.appendChild(newRow);
+}
+
+function clearScheduleDialogFields() {
+    document.getElementById("patient-name").value = '';
+    document.getElementById("doctor-name").value = '';
+    document.getElementById("date").value = '';
+    document.getElementById("time").value = '';
+    document.querySelector('input[name="plan"]:checked').checked = false;
+}
+
+function showScheduleDialog() {
+    document.getElementById("dialog-container").style.display = "flex";
+}
+
+function hideScheduleDialog() {
+    document.getElementById("dialog-container").style.display = "none";
+}
+
+function showProcessingDialog() {
+    document.getElementById("processing-dialog").style.display = "flex";
+}
+
+function hideProcessingDialog() {
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.style.width = "0%";
+
+    document.getElementById("processing-dialog").style.display = "none";
+}
